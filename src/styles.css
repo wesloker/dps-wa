@@ -1,0 +1,44 @@
+@font-face {
+  font-family: Roboto;
+  src: url(./fonts\roboto\Roboto-Regular.ttf),
+    url(./fonts\roboto\Roboto-Italic.ttf), url(./fonts\roboto\Roboto-Bold.ttf);
+}
+@font-face {
+  font-family: OpenSans;
+  src: url(./fonts\openSans\OpenSans-Regular.ttf),
+    url(./fonts\openSans\OpenSans-Italic.ttf),
+    url(./fonts\openSans\OpenSans-Bold.ttf);
+}
+*,
+:after,
+:before {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: Roboto, OpenSans, sans-serif;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.container-full {
+  width: 100%;
+}
+.container,
+.container-full {
+  height: auto;
+}
+.bg-primary {
+  background-color: #fafdff;
+}
+.bg-secondary {
+  background-color: #007bdf;
+}
+.bg-dark {
+  background-color: #141618;
+}

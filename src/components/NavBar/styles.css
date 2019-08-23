@@ -1,0 +1,42 @@
+.header {
+  height: 50px;
+  padding: 15px;
+  background-color: #fafdff;
+  border-top: 2px solid #fba905;
+  border-bottom: 1px solid #dfe0e0;
+}
+.header,
+.header .navbar {
+  display: flex;
+  align-items: center;
+}
+.header .navbar {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  transition: all 0.3s;
+}
+.header .navbar__logo a .spdLogo {
+  display: inline-flex;
+  margin: 0;
+  cursor: pointer;
+}
+.header .navbar__logo a .spdLogo .onMovil {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #4e575d;
+}
+.header .navbar__logo a .spdLogo .onDesktop {
+  display: none;
+  font-size: 1em;
+  font-weight: 600;
+  color: #4e575d;
+}
+.header .navbar__sponsors {
+  display: none;
+}
+@media only screen and (min-width: 576px) {
+  .header .navbar__logo a .spdLogo .onMovil {
+    padding-left: 15px;
+  }
+}

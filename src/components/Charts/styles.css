@@ -1,0 +1,237 @@
+.graphs-content {
+  margin-top: 530px;
+  padding: 15px;
+}
+.charts {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+.chart {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  min-height: 250px;
+}
+.datalists {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 15px 0;
+  margin-bottom: 1em;
+}
+.datalists__form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 33.3%;
+  z-index: 10;
+}
+.datalists__form:last-child {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding: 0 8px;
+}
+.list-label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 0.6em;
+  color: #999;
+}
+#departmentsInput,
+#districtsInput,
+#provincesInput {
+  width: 90%;
+  padding: 0.5em;
+  font-size: 0.8em;
+  border-radius: 2px;
+  border: 1px solid #d9d9d9;
+}
+.submitform,
+.geoBtn {
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.8em;
+  line-height: 1.46;
+  padding: 0.4em;
+  width: 100%;
+  margin-top: 15px;
+}
+.submitform {
+  background-color: #0693cd;
+}
+.geoBtn {
+  background-color: #fa1d1e;
+  margin-left: 0.8em;
+}
+.table {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3em;
+}
+.table,
+.table #drawSecureLocTable {
+  padding: 15px;
+}
+@media only screen and (max-width: 575px) {
+  .datalists {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  .datalists__form {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 1em;
+    width: 100%;
+    padding: 0 15px;
+  }
+  .datalists__form:last-child {
+    padding: 0 15px;
+  }
+  #departmentsInput,
+  #districtsInput,
+  #provincesInput {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 576px) {
+  .graphs-content {
+    margin-top: 520px;
+  }
+  .datalists {
+    /* flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 15px;
+    margin-bottom: 1em; */
+    padding: 15px;
+  }
+  .datalists__form {
+    /* flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: 0.8em;
+    z-index: 10; */
+    align-items: flex-start;
+  }
+  .datalists__form:last-child {
+    justify-content: space-between;
+    margin-right: 0;
+    padding: 0;
+  }
+  .datalists__form:first-child {
+    padding-right: 5px;
+  }
+  .datalists__form:nth-child(2) {
+    padding: 0 10px;
+  }
+  .datalists__form:nth-child(3) {
+    padding-left: 5px;
+  }
+  .list-label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: 0.6em;
+    color: #999;
+  }
+  #departmentsInput,
+  #districtsInput,
+  #provincesInput {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 0.8em;
+    border-radius: 2px;
+    border: 1px solid #d9d9d9;
+  }
+
+  .datalists__form:first-child {
+    text-align: left;
+  }
+  .datalists__form:nth-child(2n) {
+    text-align: center;
+  }
+
+  .submitform,
+  .geoBtn {
+    font-size: 0.8em;
+    line-height: 1.46;
+    padding: 0.4em;
+    width: 45%;
+    margin-top: 15px;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .graphs-content {
+    margin-top: 0px;
+    padding: 15px;
+  }
+  .charts {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chart:first-child {
+    border-right: 1px solid #dfe0e0;
+  }
+  .datalists {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .datalists__form {
+    align-items: flex-start;
+    /* margin-right: 1em; */
+    z-index: 10;
+  }
+  .datalists__form:last-child {
+    justify-content: flex-end;
+  }
+  .list-label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-size: 0.7em;
+  }
+  #departmentsInput,
+  #districtsInput,
+  #provincesInput {
+    width: 180px;
+    padding: 0.5em;
+    font-size: 0.9em;
+    border-radius: 2px;
+  }
+  .submitform,
+  .geoBtn {
+    width: 170px;
+    margin-top: 18px;
+    line-height: 1.75;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .datalists__form {
+    margin-right: 1em;
+  }
+}
