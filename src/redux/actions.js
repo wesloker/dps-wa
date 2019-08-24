@@ -37,7 +37,7 @@ const getAllEarthquakeReports = () => async (dispatch) => {
         }
       `;
       const response = await fetch(
-        'https://dps-api.herokuapp.com/api/v0.1.0beta/earthquake/reports',
+        'https://spd-api.herokuapp.com/api/v0.1.0beta/earthquake/reports',
         {
           method: 'POST',
           headers: {
@@ -84,7 +84,7 @@ const getEarthquakeData = (earthquakeId = 'last') => async (dispatch) => {
         }
       `;
       const response = await fetch(
-        'https://dps-api.herokuapp.com/api/v0.1.0beta/earthquake/report',
+        'https://spd-api.herokuapp.com/api/v0.1.0beta/earthquake/report',
         {
           method: 'POST',
           headers: {
@@ -127,7 +127,7 @@ const getPlacesData = () => async (dispatch) => {
         }
       `;
       const response = await fetch(
-        'https://dps-api.herokuapp.com/api/v0.1.0beta/departments',
+        'https://spd-api.herokuapp.com/api/v0.1.0beta/departments',
         {
           method: 'POST',
           headers: {

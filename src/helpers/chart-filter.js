@@ -14,13 +14,13 @@ async function getData(placeType, e, id) {
   // const token = '';
   // const authorization = 'Bearer '.concat(token);
   const fetchData = await fetch(
-    `https://dps-api.herokuapp.com/api/v0.1.0beta/${placeType}`,
+    `https://spd-api.herokuapp.com/api/v0.1.0beta/${placeType}`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'Access-Control-Allow-Origin': 'https://dps-api.herokuapp.com',
+        'Access-Control-Allow-Origin': 'https://spd-api.herokuapp.com',
         'Access-Control-Allow-Credentials': true,
       },
       body: JSON.stringify({ query }),

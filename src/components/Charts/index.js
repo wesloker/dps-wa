@@ -61,7 +61,7 @@ class Charts extends React.Component {
       // const token = '';
       // const authorization = 'Bearer '.concat(token);
       const fetchData = await fetch(
-        `https://dps-api.herokuapp.com/api/v0.1.0beta/popcenters`,
+        `https://spd-api.herokuapp.com/api/v0.1.0beta/popcenters`,
         {
           method: 'POST',
           headers: {
