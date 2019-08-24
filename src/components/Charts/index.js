@@ -4,7 +4,6 @@ import L from 'leaflet';
 import { connect } from 'react-redux';
 
 import { getPlacesData as getPlacesDataAction } from '../../redux/actions';
-import startGoogleCharts from '../../helpers/charts';
 import onChangeChartFilter from '../../helpers/chart-filter';
 
 class Charts extends React.Component {
@@ -19,7 +18,6 @@ class Charts extends React.Component {
       wayPoints: [],
     };
     this.startTableListener = this.startTableListener.bind(this);
-    this.startGoogleCharts = startGoogleCharts.bind(this);
     this.onChangeChartFilter = onChangeChartFilter.bind(this);
     this.drawAllCharts = this.drawAllCharts.bind(this);
     this.fetchPopCenters = this.fetchPopCenters.bind(this);
@@ -63,7 +61,7 @@ class Charts extends React.Component {
       // const token = '';
       // const authorization = 'Bearer '.concat(token);
       const fetchData = await fetch(
-        `http://localhost:4000/api/v0.1.0beta/popcenters`,
+        `https://dps-api.herokuapp.com/api/v0.1.0beta/popcenters`,
         {
           method: 'POST',
           headers: {
@@ -194,7 +192,6 @@ class Charts extends React.Component {
         isDrawable={this.state.isDrawable}
         drawAllCharts={this.drawAllCharts}
         departments={this.props.departments}
-        startGoogleCharts={this.startGoogleCharts}
         onChangeChartFilter={this.onChangeChartFilter}
       />
     );

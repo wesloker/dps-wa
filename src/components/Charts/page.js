@@ -81,7 +81,6 @@ function Page(props) {
             name="districts"
             list="districts"
             placeholder="Distrito"
-            onChange={props.startGoogleCharts}
           />
           <datalist id="districts" />
         </div>
