@@ -3,6 +3,7 @@ import Page from './page';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 
+import TableChart from '../../helpers/table';
 import { getPlacesData as getPlacesDataAction } from '../../redux/actions';
 import onChangeChartFilter from '../../helpers/chart-filter';
 
@@ -16,6 +17,7 @@ class Charts extends React.Component {
       popCenters: [],
       userCoords: [],
       wayPoints: [],
+      drawTable: false,
     };
     this.startTableListener = this.startTableListener.bind(this);
     this.onChangeChartFilter = onChangeChartFilter.bind(this);
@@ -24,6 +26,57 @@ class Charts extends React.Component {
     this.leafletWayPoints = this.leafletWayPoints.bind(this);
     this.activateGeolocation = this.activateGeolocation.bind(this);
     this.getData = this.getData.bind(this);
+    this.drawTableChart = this.drawTableChart.bind(this);
+  }
+
+  drawTableChart(id) {
+    if (this.state.isDrawable && !this.state.drawTable) {
+      const table = new TableChart(id, {
+        allowHTML: false,
+        styles: {
+          width: 500,
+        },
+      });
+      let arr = [];
+      this.state.popCenters.popCenters.forEach((el) => {
+        arr.push([
+          el.name,
+          el.population.total,
+          el.population.male,
+          el.population.female,
+          Boolean(Math.round(Math.random())),
+          `<span data-route='goTo' data-latLng='-12.046374, -77.042793'>Ir</span>`,
+        ]);
+      });
+      table
+        .addColumns([
+          { value: 'Centro Poblado', type: 'string' },
+          { value: 'Población Total', type: 'number' },
+          { value: 'Hombres', type: 'number' },
+          { value: 'Mujeres', type: 'number' },
+          { value: 'Zona Segura', type: 'boolean' },
+          { value: 'Rutas', type: 'string' },
+        ])
+        .addRows(arr)
+        .draw();
+
+      const callback = function({ target }) {
+        if (target.getAttribute('data-route') === 'goTo') {
+          const arr = target.getAttribute('data-latLng');
+          const coords =
+            arr === null || typeof arr === 'undefined' ? [] : arr.split(',');
+          if (coords.length === 2) {
+            this.leafletWayPoints({ posLat: coords[0], posLng: coords[1] });
+          }
+        }
+      };
+      document
+        .getElementById(id)
+        .addEventListener('click', callback.bind(this));
+      this.setState({
+        drawTable: !this.state.drawTable,
+      });
+    }
   }
 
   async fetchPopCenters(nextId) {
@@ -185,6 +238,7 @@ class Charts extends React.Component {
   }
 
   render() {
+    this.drawTableChart('drawSecureLocTableChart');
     return (
       <Page
         tableCallback={this.startTableListener}

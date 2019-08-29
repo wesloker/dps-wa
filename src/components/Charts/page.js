@@ -1,12 +1,13 @@
 import React from 'react';
 import './styles.css';
+import './table.css';
 
 import Chart from 'react-google-charts';
 
 function Page(props) {
-  const { departments, popCenters } = props;
+  const { departments /* popCenters */ } = props;
   let arr = [];
-  props.isDrawable &&
+  /* props.isDrawable &&
     popCenters.popCenters.forEach((el) => {
       arr.push([
         el.name,
@@ -25,7 +26,7 @@ function Page(props) {
         Boolean(Math.round(Math.random())),
         `<span data-route='goTo' data-latLng='-12.046374, -77.042793'>Ir</span>`,
       ]);
-    });
+    }); */
   // ['Centro Poblado 1', { v: 1000, f: '1,000' }, true];
   return (
     <div className="container-full graphs-content">
@@ -143,7 +144,8 @@ function Page(props) {
         </div>
       </div>
       <div className="container table">
-        <div id="drawSecureLocTable">
+        <div id="drawSecureLocTableChart" />
+        {/* <div id="drawSecureLocTable">
           {props.isDrawable && (
             <Chart
               width={'100%'}
@@ -172,12 +174,12 @@ function Page(props) {
                 showRowNumber: true,
                 allowHtml: true,
               }}
-              /* style={{
-                textAlign: 'center',
-              }} */
+              // style={{
+                //textAlign: 'center',
+              //}}
             />
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );
