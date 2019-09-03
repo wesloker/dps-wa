@@ -17,7 +17,7 @@ module.exports = function TableChart(id, options) {
     },
     allowHTML: options.allowHTML || false,
   };
-  this.chart = document.createElement(id, this.options);
+  this.chart = document.createElement('table', this.options);
   this.addColumn = (arr) => {
     this.columns.push(arr);
     return this;

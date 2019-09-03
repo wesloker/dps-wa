@@ -1,37 +1,57 @@
 import React from 'react';
-import Page from './page';
 import L from 'leaflet';
 import { connect } from 'react-redux';
 
-import TableChart from '../../helpers/table';
-import { getPlacesData as getPlacesDataAction } from '../../redux/actions';
+import {
+  getPlacesData as getPlacesDataAction,
+  getPlacesDataFunc as getPlacesDataFuncAction,
+} from '../../redux/actions';
 import onChangeChartFilter from '../../helpers/chart-filter';
+import TableChartConstructor from '../../helpers/table';
+import textToSpeech from '../../helpers/textToSpeech';
+import Page from './page';
 
 class Charts extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      departments: this.props.departments,
+      // departments: this.props.departments,
       currentValue: '',
       isDrawable: false,
       popCenters: [],
       userCoords: [],
       wayPoints: [],
       drawTable: false,
+      leafletMap: {},
     };
     this.startTableListener = this.startTableListener.bind(this);
     this.onChangeChartFilter = onChangeChartFilter.bind(this);
     this.drawAllCharts = this.drawAllCharts.bind(this);
-    this.fetchPopCenters = this.fetchPopCenters.bind(this);
+    // this.fetchPopCenters = this.fetchPopCenters.bind(this);
     this.leafletWayPoints = this.leafletWayPoints.bind(this);
     this.activateGeolocation = this.activateGeolocation.bind(this);
-    this.getData = this.getData.bind(this);
+    // this.getData = this.getData.bind(this);
     this.drawTableChart = this.drawTableChart.bind(this);
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (
+      props.popCenters.length > 0 ||
+      typeof props.leafletMap === typeof state.leafletMap
+    ) {
+      console.log('props get derived', props);
+      return {
+        popCenters: props.popCenters,
+        leafletMap: props.leafletMap,
+      };
+    }
+    return null;
   }
 
   drawTableChart(id) {
     if (this.state.isDrawable && !this.state.drawTable) {
-      const table = new TableChart(id, {
+      const table = new TableChartConstructor(id, {
         allowHTML: false,
         styles: {
           width: 500,
@@ -45,7 +65,7 @@ class Charts extends React.Component {
           el.population.male,
           el.population.female,
           Boolean(Math.round(Math.random())),
-          `<span data-route='goTo' data-latLng='-12.046374, -77.042793'>Ir</span>`,
+          `<span data-route='goTo' data-latLng='-12.046374, -77.042793' style='cursor: pointer;'>Ir</span>`,
         ]);
       });
       table
@@ -57,8 +77,9 @@ class Charts extends React.Component {
           { value: 'Zona Segura', type: 'boolean' },
           { value: 'Rutas', type: 'string' },
         ])
-        .addRows(arr)
-        .draw();
+        .addRows(arr);
+
+      table.draw();
 
       const callback = function({ target }) {
         if (target.getAttribute('data-route') === 'goTo') {
@@ -73,12 +94,12 @@ class Charts extends React.Component {
       document
         .getElementById(id)
         .addEventListener('click', callback.bind(this));
-      this.setState({
+      /* this.setState({
         drawTable: !this.state.drawTable,
-      });
+      }); */
     }
   }
-
+  /* 
   async fetchPopCenters(nextId) {
     try {
       const districtsInput = document.getElementById('districtsInput');
@@ -114,7 +135,11 @@ class Charts extends React.Component {
       // const token = '';
       // const authorization = 'Bearer '.concat(token);
       const fetchData = await fetch(
-        `https://spd-api.herokuapp.com/api/v0.1.0beta/popcenters`,
+        `${
+          process.env.NODE_ENV === 'development'
+            ? 'http://localhost:4000'
+            : 'https://spd-api.herokuapp.com'
+        }/api/v0.1.0beta/popcenters`,
         {
           method: 'POST',
           headers: {
@@ -134,7 +159,7 @@ class Charts extends React.Component {
     } catch (err) {
       throw new Error(err);
     }
-  }
+  } */
 
   async leafletWayPoints({ posLat, posLng }) {
     if (this.state.userCoords.length === 2) {
@@ -149,47 +174,49 @@ class Charts extends React.Component {
         }),
         //geocoder: L.Control.Geocoder.nominatim({}),
       }).addTo(this.state.leafletMap);
-      console.log('agregados');
-      this.setState({
+      /* this.setState({
         wayPoints: [route, ...this.state.wayPoints],
-      });
+      }); */
     } else {
       let reload = true;
       await this.activateGeolocation(reload, { posLat, posLng });
     }
   }
 
-  shouldComponentUpdate(nextProps, _nextState) {
-    if (nextProps.leafletMap !== 'undefined') {
-      return true;
-    }
-    if (nextProps.departments !== 'undefined') {
+  /* ELIMINAR LA FUNCION DE ABAJO YA QUE ACTUALIZA INNECESARIAMENTE EL COMPONENTE */
+  /*  shouldComponentUpdate(nextProps, _nextState) {
+    console.log('current: ', this.props);
+    console.log('new: ', nextProps);
+    if (
+      typeof nextProps.leafletMap === 'object' ||
+      nextProps.popCenters.length > 0
+    ) {
       return true;
     }
     return false;
-  }
+  } */
 
-  componentDidUpdate(oldProps) {
-    const newProps = this.props;
+  /* componentDidUpdate(oldProps) {
+     const newProps = this.props;
+    console.log(newProps);
     if (oldProps.leafletMap !== newProps.leafletMap) {
       this.setState({
         leafletMap: newProps.leafletMap,
       });
-    }
-    if (oldProps.departments !== newProps.departments) {
+    } else if (oldProps.popCenters !== newProps.popCenters) {
       this.setState({
-        departments: newProps.departments,
+        popCenters: newProps.popCenters,
       });
     }
-  }
+  } */
 
   async activateGeolocation(reload = false, coords) {
     if (navigator.geolocation && this.state.userCoords.length !== 2) {
       await navigator.geolocation.getCurrentPosition(
         (position) => {
-          this.setState({
+          /* this.setState({
             userCoords: [position.coords.latitude, position.coords.longitude],
-          });
+          }); */
           if (reload) {
             this.leafletWayPoints(coords);
           }
@@ -223,30 +250,37 @@ class Charts extends React.Component {
 
   drawAllCharts(e) {
     e.preventDefault();
-    const nextId = document.getElementById('districtsInput').value;
-    if (nextId.length > 0) {
-      this.fetchPopCenters(nextId);
-    }
-  }
-
-  async getData() {
-    await this.props.getPlacesData();
+    const districtsInput = document.getElementById('districtsInput');
+    this.props.getPlacesDataFunc({
+      target: { ...districtsInput, name: 'popCenters' },
+    });
   }
 
   componentDidMount() {
-    this.getData();
+    this.props.getPlacesDataFunc();
+    if (window.speechSynthesis.getVoices().length === 0) {
+      window.speechSynthesis.addEventListener('voiceschanged', function() {
+        textToSpeech();
+      });
+    } else {
+      // languages list available, no need to wait
+      textToSpeech();
+    }
   }
 
   render() {
+    console.log(this.state);
     this.drawTableChart('drawSecureLocTableChart');
     return (
       <Page
         tableCallback={this.startTableListener}
-        popCenters={this.state.popCenters}
+        // popCenters={this.state.popCenters}
         isDrawable={this.state.isDrawable}
         drawAllCharts={this.drawAllCharts}
-        departments={this.props.departments}
-        onChangeChartFilter={this.onChangeChartFilter}
+        // departments={this.props.departments}
+        onChangeChartFilter={
+          this.props.getPlacesDataFunc /* this.onChangeChartFilter */
+        }
       />
     );
   }
@@ -254,12 +288,14 @@ class Charts extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    departments: state.placesReducer.departments,
+    //departments: state.placesReducer.departments,
+    popCenters: state.placesReducer.popCenters,
     leafletMap: state.mapReducer.leafletMap,
   };
 };
 
 const mapDispatchToProps = {
+  getPlacesDataFunc: getPlacesDataFuncAction,
   getPlacesData: getPlacesDataAction,
 };
 

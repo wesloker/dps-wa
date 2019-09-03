@@ -14,13 +14,20 @@ async function getData(placeType, e, id) {
   // const token = '';
   // const authorization = 'Bearer '.concat(token);
   const fetchData = await fetch(
-    `https://spd-api.herokuapp.com/api/v0.1.0beta/${placeType}`,
+    `${
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:4000'
+        : 'https://spd-api.herokuapp.com'
+    }/api/v0.1.0beta/${placeType}`,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'Access-Control-Allow-Origin': 'https://spd-api.herokuapp.com',
+        'Access-Control-Allow-Origin':
+          process.env.NODE_ENV === 'development'
+            ? 'http://localhost:4000'
+            : 'https://spd-api.herokuapp.com',
         'Access-Control-Allow-Credentials': true,
       },
       body: JSON.stringify({ query }),
@@ -54,6 +61,8 @@ export default function onChangeChartFilter({ target: e }) {
   if (placeType !== 'popCenters') {
     const childInput = document.getElementById(`${placeType}Input`);
     childInput.value = '';
+    const childList = document.getElementById(placeType);
+    childList.innerHTML = '';
   }
   const list = document.getElementById(e.name);
   const listItem = Array.from(list.children).find((li) => {

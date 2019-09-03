@@ -1,17 +1,12 @@
 import React from 'react';
-import './styles.css';
-import Page from './page';
-
+import L from 'leaflet';
 import { connect } from 'react-redux';
-import { setMapInstance as setMapInstanceAction } from '../../redux/actions';
-
-import * as L from 'leaflet';
 import { GestureHandling } from 'leaflet-gesture-handling';
 import 'leaflet-routing-machine';
 
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import { setMapInstance as setMapInstanceAction } from '../../redux/actions';
+
+import Page from './page';
 
 class LeafletMap extends React.Component {
   constructor(props) {
@@ -24,19 +19,8 @@ class LeafletMap extends React.Component {
   }
 
   drawMap() {
-    let lat, lng;
-    /* if (document.getElementById('data-lat').textContent.trim().length === 1) {
-      lat = -9.1899672;
-    } else {
-      lat = document.getElementById('data-lat').textContent;
-    }
-    if (document.getElementById('data-lng').textContent.trim().length === 1) {
-      lng = -75.015152;
-    } else {
-      lng = document.getElementById('data-lng').textContent;
-    } */
-    lat = -9.1899672;
-    lng = -75.015152;
+    const lat = -9.1899672;
+    const lng = -75.015152;
     L.Map.addInitHook('addHandler', 'gestureHandling', GestureHandling);
     const map = L.map('map', {
       center: [lat, lng],

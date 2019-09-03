@@ -1,4 +1,4 @@
-export default class Observer {
+export default class ObserverTag {
   constructor(eventType) {
     this.eventType = eventType;
     this.handlers = [];

@@ -6,7 +6,7 @@ import Chart from 'react-google-charts';
 
 function Page(props) {
   const { departments /* popCenters */ } = props;
-  let arr = [];
+  // let arr = [];
   /* props.isDrawable &&
     popCenters.popCenters.forEach((el) => {
       arr.push([
@@ -33,18 +33,18 @@ function Page(props) {
       <div className="container datalists">
         <div className="datalists__form">
           <label className="list-label" htmlFor="depList">
-            Seleccione un Departamento
+            <input
+              type="text"
+              id="departmentsInput"
+              name="departments"
+              list="departments"
+              placeholder="Departamento"
+              readOnly
+              onChange={props.onChangeChartFilter}
+            />
           </label>
-          <input
-            type="text"
-            id="departmentsInput"
-            name="departments"
-            list="departments"
-            placeholder="Departamento"
-            onChange={props.onChangeChartFilter}
-          />
           <datalist id="departments">
-            {typeof departments !== 'undefined' &&
+            {/* typeof departments !== 'undefined' &&
               departments !== null &&
               (departments.length !== 0 &&
                 departments.map((department) => {
@@ -55,34 +55,34 @@ function Page(props) {
                       value={department.name}
                     />
                   );
-                }))}
+                })) */}
           </datalist>
         </div>
         <div className="datalists__form">
           <label className="list-label" htmlFor="provList">
-            Seleccione una Provincia
+            <input
+              type="text"
+              id="provincesInput"
+              name="provinces"
+              list="provinces"
+              placeholder="Provincia"
+              readOnly
+              onChange={props.onChangeChartFilter}
+            />
           </label>
-          <input
-            type="text"
-            id="provincesInput"
-            name="provinces"
-            list="provinces"
-            placeholder="Provincia"
-            onChange={props.onChangeChartFilter}
-          />
           <datalist id="provinces" />
         </div>
         <div className="datalists__form">
           <label className="list-label" htmlFor="distList">
-            Seleccione un Distrito
+            <input
+              type="text"
+              id="districtsInput"
+              name="districts"
+              list="districts"
+              readOnly
+              placeholder="Distrito"
+            />
           </label>
-          <input
-            type="text"
-            id="districtsInput"
-            name="districts"
-            list="districts"
-            placeholder="Distrito"
-          />
           <datalist id="districts" />
         </div>
         <div className="datalists__form">

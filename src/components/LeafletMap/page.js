@@ -1,7 +1,11 @@
 import React from 'react';
-import './styles.css';
 
 import EarthquakeReportPanel from '../EarthquakeReportPanel/';
+
+import './styles.css';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 function Page(props) {
   return (

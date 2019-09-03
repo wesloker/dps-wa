@@ -1,14 +1,14 @@
 import React from 'react';
-import Page from './page';
-
-import { connect } from 'react-redux';
 import L from 'leaflet';
-import Observer from '../../helpers/Observer';
+import { connect } from 'react-redux';
 
 import {
   getEarthquakeData as getEarthquakeDataAction,
   getAllEarthquakeReports as getAllEarthquakeReportsAction,
 } from '../../redux/actions';
+import ObserverTag from '../../helpers/ObserverTag';
+
+import Page from './page';
 
 class EarthquakeReportPanel extends React.Component {
   constructor(props) {
@@ -141,7 +141,7 @@ class EarthquakeReportPanel extends React.Component {
   }
 
   initResizer() {
-    const ro = new Observer('resize');
+    const ro = new ObserverTag('resize');
     ro.observe('reportPanel', () => {
       const xWidth = window.innerWidth;
       const reportPanel = document.getElementById('reportPanel');

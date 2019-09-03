@@ -2,15 +2,17 @@ import React from 'react';
 import './styles.css';
 
 import NavBar from '../NavBar/';
-import Map from '../Map/';
+import LeafletMap from '../LeafletMap/';
 import Charts from '../Charts/';
+import Footer from '../Footer/';
 
-function Page(props) {
+function Page() {
   return (
     <React.Fragment>
       <NavBar />
-      <Map />
+      <LeafletMap />
       <Charts />
+      <Footer />
     </React.Fragment>
   );
 }
