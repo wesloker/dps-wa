@@ -1,5 +1,5 @@
 # use a node base image
-FROM node:7-onbuild
+FROM node:10
 
 # set maintainer
 LABEL maintainer "wesloker.aqs@gmail.com"
